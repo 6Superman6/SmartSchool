@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--开启注解扫描，只扫描Controller注解-->
+    <context:component-scan base-package="Demo">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+    </context:component-scan>
+
+    <!--&lt;!&ndash; 2.配置映射处理和适配器&ndash;&gt;-->
+    <!--<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>-->
+    <!--<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>-->
+
+    <!--配置的视图解析器对象-->
+    <bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/pages/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!-- 这是springmvc提供的文件解析组件,对上传文件的请求解析等工作进行了封装 -->
+    <!-- 在测试传统方式上传时,要将该bean注释掉,否则会出现歧义 -->
+    <!-- 配置文件解析器对象，要求id名称必须是multipartResolver -->
+    <!-- 配置上传文件 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize">
+            <value>10485760</value>
+        </property>
+        <property name="defaultEncoding">
+            <value>UTF-8</value>
+        </property>
+    </bean>
+    <!--/文件解析器end-->
+
+    <!--过滤静态资源-->
+    <mvc:resources location="/css/" mapping="/css/**" />
+    <mvc:resources location="/images/" mapping="/images/**" />
+    <mvc:resources location="/js/" mapping="/js/**" />
+
+    <!--拦截器-->
+    <!--配置拦截器-->
+    <mvc:interceptors>
+        <!--配置第一个拦截器-->
+        <mvc:interceptor>
+            <!--要拦截的具体的方法-->
+            <mvc:mapping path="/record/inter"/>
+            <!--不要拦截的方法-->
+            <!--<mvc:exclude-mapping path="/user/regist" />         &lt;!&ndash;不拦截注册&ndash;&gt;-->
+            <!--<mvc:exclude-mapping path="/user/login" />         &lt;!&ndash;不拦截登录&ndash;&gt;-->
+            <!--配置拦截器对象-->
+            <bean class="Demo.utils.LoginInterceptor"></bean>
+        </mvc:interceptor>
+        <!--&lt;!&ndash;配置第二个拦截器&ndash;&gt;-->
+        <!--<mvc:interceptor>-->
+        <!--&lt;!&ndash;要拦截的具体的方法&ndash;&gt;-->
+        <!--<mvc:mapping path="/**"/>-->
+        <!--&lt;!&ndash;不要拦截的方法&ndash;&gt;-->
+        <!--&lt;!&ndash;<mvc:exclude-mapping path="" />&ndash;&gt;-->
+        <!--&lt;!&ndash;配置拦截器对象&ndash;&gt;-->
+        <!--<bean class="Demo.interceptor.MyInterceptor2"></bean>-->
+        <!--</mvc:interceptor>-->
+    </mvc:interceptors>
+    <!--拦截器-->
+
+    <!--开启SpringMVC注解的支持-->
+    <mvc:annotation-driven/>
+
+    <!--配置自定义类型转换器-->
+    <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <bean class="Demo.utils.StringToDateConverter2" />
+                <bean class="Demo.utils.StringToDateConverter"/>
+            </set>
+        </property>
+    </bean>
+
+
+    <!-- 开启SpringMVC框架注解的支持 -->
+    <mvc:annotation-driven conversion-service="conversionService"/>
+
+</beans>
