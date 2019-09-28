@@ -50,7 +50,7 @@ public class TesttellController {
         String filename = ImaTool.Imagetool(request,image);
         if(filename!=null)
         {
-            testtell.setImage("47.94.10.228/uploads/"+filename);
+            testtell.setImage("localhost/uploads/"+filename);
         }
         String temp=testtellService.insert(testtell);
         System.out.println("testtell : "+testtell+"image : "+image);
@@ -86,7 +86,7 @@ public class TesttellController {
         String filename = ImaTool.Imagetool(request,image);
         if(filename!=null)
         {
-            testtell.setImage("47.94.10.228/uploads/"+filename);
+            testtell.setImage("localhost/uploads/"+filename);
         }
         String temp=testtellService.update(testtell);
         if(temp.equals("修改成功"))

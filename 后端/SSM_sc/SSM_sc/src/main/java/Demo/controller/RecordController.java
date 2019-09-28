@@ -38,7 +38,7 @@ public class RecordController {
         String filename = ImaTool.Imagetool(request,image);
         if(filename!=null)
         {
-            record.setImage("47.94.10.228/uploads/"+filename);
+            record.setImage("localhost/uploads/"+filename);
         }
         if(record==null)
         {
@@ -77,7 +77,7 @@ public class RecordController {
         String filename = ImaTool.Imagetool(request,image);
         if(filename!=null)
         {
-            record.setImage("47.94.10.228/uploads/"+filename);
+            record.setImage("localhost/uploads/"+filename);
         }
         if(record==null)
         {

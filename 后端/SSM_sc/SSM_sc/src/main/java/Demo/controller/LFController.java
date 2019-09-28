@@ -40,7 +40,7 @@ public class LFController {
         String filename = ImaTool.Imagetool(request,image);
         if(filename!=null)
         {
-            lostfound.setImage("47.94.10.228/uploads/"+filename);
+            lostfound.setImage("localhost/uploads/"+filename);
         }
         if(lostfound==null)
             return ServerResponse.createByError("数据添加失败");//   -2
@@ -85,7 +85,7 @@ public class LFController {
         String filename = ImaTool.Imagetool(request,image);
         if(filename!=null)
         {
-            lostfound.setImage("47.94.10.228/uploads/"+filename);
+            lostfound.setImage("localhost/uploads/"+filename);
         }
         if(lostfound==null){
             return ServerResponse.createByError("更新出错");    //报备失败，数据有误  -1

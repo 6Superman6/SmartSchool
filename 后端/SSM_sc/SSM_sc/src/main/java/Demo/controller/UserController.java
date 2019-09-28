@@ -160,7 +160,7 @@ public class UserController {
        String filename = ImaTool.Imagetool(request,uimage);
        if(filename!=null)
        {
-           user.setUimage("47.94.10.228/uploads/"+filename);
+           user.setUimage("localhost/uploads/"+filename);
        }
        String m=userService.updateuser(user);
        //System.out.println(m);

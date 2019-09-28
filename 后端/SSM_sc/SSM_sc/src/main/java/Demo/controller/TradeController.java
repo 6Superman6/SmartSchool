@@ -34,7 +34,7 @@ public class TradeController {
         String filename = ImaTool.Imagetool(request,image);
         if(filename!=null)
         {
-            trade.setImage("47.94.10.228/uploads/"+filename);
+            trade.setImage("localhost/uploads/"+filename);
         }
         System.out.println(trade);
         if(trade==null)
@@ -72,7 +72,7 @@ public class TradeController {
         String filename = ImaTool.Imagetool(request,image);
         if(filename!=null)
         {
-            trade.setImage("47.94.10.228/uploads/"+filename);
+            trade.setImage("localhost/uploads/"+filename);
         }
         if(trade==null)
         {
